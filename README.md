@@ -1,21 +1,20 @@
 # usersテーブル
 
-| Column           | Type    | Options       |
-| ---------------- | ------- | ------------- |
-| nickname         | string  | null: false   |
-| email            | string  | null: false   |
-| password         | string  | null: false   |
-| family_name      | string  | null: false   |
-| first_name       | string  | null: false   |
-| family_name_kana | string  | null: false   |
-| first_name_kana  | string  | null: false   |
-| birthday         | date    | null: false   |
+| Column              | Type    | Options             |
+| ------------------- | ------- | ------------------- |
+| nickname            | string  | null: false         |
+| email               | string  | null: false, unique |
+| encrypted_password  | string  | null: false         |
+| family_name         | string  | null: false         |
+| first_name          | string  | null: false         |
+| family_name_kana    | string  | null: false         |
+| first_name_kana     | string  | null: false         |
+| birthday            | date    | null: false         |
 
 ### Association
 
 - has_many :products
 - has_many :customers
-- has_many :destinations
 
 
 
@@ -30,10 +29,9 @@
 | category_id      | integer    | null:false                   |
 | prefecture_id    | integer    | null:false                   |
 | shipping_fee-id  | integer    | null:false                   |
-| shipping_days_id | integer    | null:false                   |
+| shipping_day_id  | integer    | null:false                   |
 | user             | references | null:false, foreign_key:true |
 | customer         | references | null;false, foreign_key:true |
-| image            |            |                              |
 
 ### Association
 
@@ -47,7 +45,7 @@
 | Column        | Type       | Options                      |
 | ------------- | ---------- | ---------------------------- |
 | post_code     | string     | null:false                   |
-| prefecture    | integer    | null:false, foreign_key:true |
+| prefecture_id | integer    | null:false                   |
 | city          | string     | null:false                   |
 | address       | string     | null:false                   |
 | building_name | string     |                              |
@@ -66,7 +64,7 @@
 | ------------- | ---------- | ------------------------------- |
 | user          | references | null:false, foreign_key: true   |
 | product       | references | null:false, foreign_key: true   |
-| destination   | references | null:false, foreign_key: true   |
+
 
 ### Association
 
