@@ -4,14 +4,29 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  validates :nickname,           presence: true
-  validates :family_name,        presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
-  validates :first_name,         presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
-  validates :family_name_kana,   presence: true, format: { with: /\A[ァ-ヶーー]+\z/ }
-  validates :first_name_kana,    presence: true, format: { with: /\A[ァ-ヶーー]+\z/ }
-  validates :birthday,           presence: true
-  validates :password,                           format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i }
-  validates :password_confirmation, presence: true, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i }
 
+  with_options presence: true do
+    validates :nickname
+    validates :family_name
+    validates :first_name
+    validates :family_name_kana
+    validates :first_name_kana
+    validates :birthday
+    validates :password_confirmation
+  end
 
+  with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ } do
+    validates :family_name
+    validates :first_name
+  end
+
+  with_options format: { with: /\A[ァ-ヶーー]+\z/ } do
+    validates :family_name_kana
+    validates :first_name_kana
+  end
+
+  with_options format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i } do
+    validates :password
+    validates :password_confirmation
+  end
 end
