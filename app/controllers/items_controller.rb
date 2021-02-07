@@ -17,6 +17,20 @@ class ItemsController < ApplicationController
     else
       render :new
     end
+
+    def show
+      @item = Item.find(params[:id])
+    end
+
+    #def edit
+    #end
+
+    #def update
+    #end
+
+    #def destroy
+    #end
+
   end
 
 
