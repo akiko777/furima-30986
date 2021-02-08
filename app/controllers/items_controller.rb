@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
     else
       render :new
     end
-
+  end
     def show
       @item = Item.find(params[:id])
     end
@@ -31,7 +31,6 @@ class ItemsController < ApplicationController
     #def destroy
     #end
 
-  end
 
 
   private
