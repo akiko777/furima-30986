@@ -30,8 +30,9 @@ class ItemsController < ApplicationController
     end
 
     def update
+      redirect_to root_path if current_user.id != @item.user_id
       if @item.update(item_params)
-        redirect_to action: :show
+        redirect_to :root_path
       else
         render :edit
       end
