@@ -6,7 +6,7 @@ class CustomerDestination
   with_options presence: true do
     validates :item_id
     validates :user_id
-    validates :post_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)" }
+    validates :post_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: "is invalid. Include hyphen(-)" }
     validates :prefecture_id
     validates :city
     validates :address
@@ -14,6 +14,7 @@ class CustomerDestination
   end
 
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
+
 
   def save
     #購入の情報を保存
