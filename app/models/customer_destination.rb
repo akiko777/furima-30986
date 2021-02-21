@@ -1,6 +1,6 @@
-class CustomerDestinaton
+class CustomerDestination
   include ActiveModel::Model
-  attr_accessor :item_id, :user_id, :post_code, :prefecture, :city, :address, :buillding, :phone_number, :customer_id
+  attr_accessor :item_id, :user_id, :post_code, :prefecture_id, :city, :address, :buillding_name, :phone_number
 
 
   with_options presence: true do
@@ -10,8 +10,7 @@ class CustomerDestinaton
     validates :prefecture_id
     validates :city
     validates :address
-    validates :phone_number, format: { with: /\A\d{11}\z/}
-    validates :customer_id
+    validates :phone_number, format: { with: /\A\d{10}\z|\A\d{11}\z/, message: "Input only number" }
   end
 
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
@@ -21,7 +20,7 @@ class CustomerDestinaton
     customer = Customer.create(item_id: item_id, user_id: user_id)
 
     #住所の情報を保存
-    Destination.create(post_code: post_code, prefecture: prefecture, city: city, address: address, buillding: buillding, phone_number: phone_number, customer_id: customer_id )
+    Destination.create(post_code: post_code, prefecture_id: prefecture_id, city: city, address: address, buillding_name: buillding_name, phone_number: phone_number, customer_id: customer.id )
   end
 
 end
