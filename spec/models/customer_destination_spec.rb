@@ -23,6 +23,16 @@ RSpec.describe CustomerDestination, type: :model do
         @customer_destination.valid?
         expect(@customer_destination.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
       end
+      it '都道府県が選択されていないと保存できない' do
+        @customer_destination.prefecture_id = nil
+        @customer_destination.valid?
+        expect(@customer_destination.errors.full_messages).to include("Prefecture can't be blank")
+      end
+      it '都道府県で1が選択されると保存できない' do
+        @customer_destination.prefecture_id = 1
+        @customer_destination.valid?
+        expect(@customer_destination.errors.full_messages).to include("Prefecture can't be blank")
+      end
       it '市区町村が空だと購入できない' do
         @customer_destination.city = nil
         @customer_destination.valid?
@@ -52,6 +62,11 @@ RSpec.describe CustomerDestination, type: :model do
         @customer_destination.valid?
         expect(@customer_destination.errors.full_messages).to include("Phone number Input only number")
       end
+      it '電話番号は英数混合では登録できない' do
+        @customer_destination.phone_number = "abc12345678"
+        @customer_destination.valid?
+        expect(@customer_destination.errors.full_messages).to include("Phone number Input only number")
+      end
       it '電話番号が12桁以上の場合は保存できない' do
         @customer_destination.phone_number = "090123456789"
         @customer_destination.valid?
@@ -61,6 +76,16 @@ RSpec.describe CustomerDestination, type: :model do
         @customer_destination.token = nil
         @customer_destination.valid?
         expect(@customer_destination.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空では保存できない' do
+        @customer_destination.user_id = nil
+        @customer_destination.valid?
+        expect(@customer_destination.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では保存できない' do
+        @customer_destination.item_id = nil
+        @customer_destination.valid?
+        expect(@customer_destination.errors.full_messages).to include("Item can't be blank")
       end
    end
 end
