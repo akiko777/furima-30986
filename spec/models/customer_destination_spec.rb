@@ -57,5 +57,10 @@ RSpec.describe CustomerDestination, type: :model do
         @customer_destination.valid?
         expect(@customer_destination.errors.full_messages).to include("Phone number Input only number")
       end
+      it 'tokenが空では登録できない'do
+        @customer_destination.token = nil
+        @customer_destination.valid?
+        expect(@customer_destination.errors.full_messages).to include("Token can't be blank")
+      end
    end
 end

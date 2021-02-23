@@ -1,6 +1,6 @@
 class CustomerDestination
   include ActiveModel::Model
-  attr_accessor :item_id, :user_id, :post_code, :prefecture_id, :city, :address, :buillding_name, :phone_number
+  attr_accessor :item_id, :user_id, :post_code, :prefecture_id, :city, :address, :buillding_name, :phone_number, :token
 
 
   with_options presence: true do
@@ -11,6 +11,7 @@ class CustomerDestination
     validates :city
     validates :address
     validates :phone_number, format: { with: /\A\d{10}\z|\A\d{11}\z/, message: "Input only number" }
+    validates :token
   end
 
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
