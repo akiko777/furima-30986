@@ -2,12 +2,10 @@ class CustomersController < ApplicationController
 
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_customer, only: [:index, :create]
+  before_action :customer_history, only: [:index, :create]
 
   def index
     @customer_destination = CustomerDestination.new
-    if current_user == @item.user or @item.customer.present?
-       redirect_to root_path
-    end
   end
 
 
@@ -36,6 +34,12 @@ private
 
   def set_customer
     @item = Item.find(params[:item_id])
+  end
+
+  def customer_history
+    if current_user == @item.user or @item.customer.present?
+      redirect_to root_path
+    end
   end
 
 end
